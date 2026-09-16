@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roshni Ghar</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background: #0f172a;
+  color: white;
+}
+
+.header {
+  background: #111827;
+  padding: 20px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.header h1 {
+  font-size: 28px;
+}
+
+.header p {
+  color: #94a3b8;
+  margin-top: 5px;
+}
+
+.container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 18px;
+}
+
+.search {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.search input {
+  flex: 1;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+}
+
+.search button {
+  border: none;
+  border-radius: 12px;
+  padding: 0 18px;
+  font-size: 18px;
+}
+
+.hero {
+  background: linear-gradient(135deg, #1e293b, #172554);
+  padding: 28px 20px;
+  border-radius: 22px;
+  margin-bottom: 25px;
+}
+
+.hero h2 {
+  font-size: 27px;
+  margin-bottom: 10px;
+}
+
+.hero p {
+  color: #cbd5e1;
+  line-height: 1.5;
+}
+
+.section-title {
+  font-size: 21px;
+  margin: 25px 0 14px;
+}
+
+.categories {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.category {
+  background: #1e293b;
+  padding: 20px 10px;
+  border-radius: 18px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.category:active {
+  transform: scale(.97);
+}
+
+.category .icon {
+  font-size: 38px;
+  margin-bottom: 8px;
+}
+
+.category p {
+  color: #94a3b8;
+  margin-top: 5px;
+}
+
+#productPage {
+  display: none;
+}
+
+.backButton {
+  background: #334155;
+  color: white;
+  border: none;
+  padding: 11px 16px;
+  border-radius: 12px;
+  margin-bottom: 18px;
+  font-size: 15px;
+}
+
+.product-title {
+  font-size: 25px;
+  margin-bottom: 18px;
+}
+
+.products {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.product {
+  background: #1e293b;
+  border-radius: 18px;
+  padding: 12px;
+}
+
+.product-image {
+  height: 135px;
+  background: #334155;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 55px;
+  margin-bottom: 12px;
+}
+
+.product h3 {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.product p {
+  color: #94a3b8;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.enquiry {
+  width: 100%;
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+.assistant-panel {
+  background: #1e293b;
+  border-radius: 20px;
+  padding: 18px;
+  margin-top: 28px;
+}
+
+.assistant-panel h2 {
+  margin-bottom: 14px;
+}
+
+#assistantOutput {
+  height: 170px;
+  overflow-y: auto;
+  background: #0f172a;
+  border-radius: 14px;
+  padding: 10px;
+  margin-bottom: 12px;
+}
+
+.message {
+  margin: 7px 0;
+  padding: 9px 11px;
+  border-radius: 10px;
+  line-height: 1.4;
+}
+
+.assistant {
+  background: #172554;
+  color: #bfdbfe;
+}
+
+.user {
+  background: #334155;
+  text-align: right;
+}
+
+.controls {
+  display: flex;
+  gap: 8px;
+}
+
+#assistantInput {
+  flex: 1;
+  padding: 13px;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  outline: none;
+}
+
+.controls button {
+  border: none;
+  border-radius: 12px;
+  padding: 0 15px;
+  font-size: 18px;
+}
+
+.footer {
+  text-align: center;
+  color: #64748b;
+  padding: 30px 10px;
+}
+
+@media (min-width: 700px) {
+  .categories {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .products {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+  <h1>🏠 Roshni Ghar</h1>
+  <p>Lights • Fans • Interior Solutions</p>
+</div>
+
+<div class="container">
+
+<!-- HOME PAGE -->
+
+<div id="homePage">
+
+  <div class="search">
+    <input id="searchInput"
+           type="text"
+           placeholder="🔍 Product search करें...">
+    <button onclick="searchProduct()">🔎</button>
+  </div>
+
+  <div class="hero">
+    <h2>आपके घर की रोशनी ✨</h2>
+    <p>
+      Beautiful lights, chandeliers, fans और
+      interior solutions — सब एक जगह।
+    </p>
+  </div>
+
+  <h2 class="section-title">Categories</h2>
+
+  <div class="categories">
+
+    <div class="category"
+         onclick="openCategory('Lights','💡')">
+      <div class="icon">💡</div>
+      <h3>Lights</h3>
+      <p>Modern Lighting</p>
+    </div>
+
+    <div class="category"
+         onclick="openCategory('Chandeliers','✨')">
+      <div class="icon">✨</div>
+      <h3>Chandeliers</h3>
+      <p>Premium Designs</p>
+    </div>
+
+    <div class="category"
+         onclick="openCategory('Fans','🌀')">
+      <div class="icon">🌀</div>
+      <h3>Fans</h3>
+      <p>Modern Fans</p>
+    </div>
+
+    <div class="category"
+         onclick="openCategory('Interior Solutions','🏡')">
+      <div class="icon">🏡</div>
+      <h3>Interior</h3>
+      <p>Home Solutions</p>
+    </div>
+
+  </div>
+
+  <h2 class="section-title">Featured Products</h2>
+
+  <div class="products">
+
+    <div class="product">
+      <div class="product-image">💡</div>
+      <h3>Modern Ceiling Light</h3>
+      <p>Premium Lighting</p>
+      <button class="enquiry"
+              onclick="enquiry('Modern Ceiling Light')">
+        Enquire
+      </button>
+    </div>
+
+    <div class="product">
+      <div class="product-image">✨</div>
+      <h3>Luxury Chandelier</h3>
+      <p>Elegant Design</p>
+      <button class="enquiry"
+              onclick="enquiry('Luxury Chandelier')">
+        Enquire
+      </button>
+    </div>
+
+    <div class="product">
+      <div class="product-image">🌀</div>
+      <h3>Modern Ceiling Fan</h3>
+      <p>Smart Home Style</p>
+      <button class="enquiry"
+              onclick="enquiry('Modern Ceiling Fan')">
+        Enquire
+      </button>
+    </div>
+
+    <div class="product">
+      <div class="product-image">🏡</div>
+      <h3>Interior Lighting</h3>
+      <p>Home Decoration</p>
+      <button class="enquiry"
+              onclick="enquiry('Interior Lighting')">
+        Enquire
+      </button>
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- PRODUCT PAGE -->
+
+<div id="productPage">
+
+  <button class="backButton"
+          onclick="goHome()">
+    ← Home
+  </button>
+
+  <h2 id="categoryTitle"
+      class="product-title">
+  </h2>
+
+  <div id="productList"
+       class="products">
+  </div>
+
+</div>
+
+
+<!-- ASSISTANT -->
+
+<div class="assistant-panel">
+
+  <h2>🤖 Roshni Assistant</h2>
+
+  <div id="assistantOutput">
+
+    <div class="message assistant">
+      नमस्ते! मैं Roshni Assistant हूँ।
+      आप मुझसे कुछ भी पूछ सकते हैं।
+    </div>
+
+  </div>
+
+  <div class="controls">
+
+    <input id="assistantInput"
+           type="text"
+           placeholder="Command लिखें..."
+           autocomplete="off">
+
+    <button id="micButton"
+            onclick="startVoice()">
+      🎤
+    </button>
+
+    <button onclick="sendMessage()">
+      ➤
+    </button>
+
+  </div>
+
+</div>
+
+</div>
+
+<div class="footer">
+  © 2026 Roshni Ghar
+</div>
+
+
+<script src="assistant.js"></script>
+
+<script>
+
+const products = {
+
+  Lights: [
+    ["Modern Ceiling Light","💡"],
+    ["LED Panel Light","🔆"],
+    ["Decorative Wall Light","💡"],
+    ["Smart Ceiling Light","✨"]
+  ],
+
+  Chandeliers: [
+    ["Luxury Chandelier","✨"],
+    ["Modern Crystal Chandelier","💎"],
+    ["Designer Chandelier","🌟"],
+    ["LED Chandelier","💡"]
+  ],
+
+  Fans: [
+    ["Modern Ceiling Fan","🌀"],
+    ["Decorative Ceiling Fan","🌀"],
+    ["LED Ceiling Fan","💡"],
+    ["Smart Fan","🌀"]
+  ],
+
+  "Interior Solutions": [
+    ["Interior Lighting","🏡"],
+    ["Living Room Lighting","💡"],
+    ["Bedroom Lighting","🌙"],
+    ["Decorative Interior Light","✨"]
+  ]
+
+};
+
+
+function openCategory(category, icon) {
+
+  document.getElementById("homePage").style.display = "none";
+
+  document.getElementById("productPage").style.display = "block";
+
+  document.getElementById("categoryTitle").textContent =
+    icon + " " + category;
+
+  const list = document.getElementById("productList");
+
+  list.innerHTML = "";
+
+  products[category].forEach(function(item) {
+
+    const card = document.createElement("div");
+
+    card.className = "product";
+
+    card.innerHTML = `
+      <div class="product-image">
+        ${item[1]}
+      </div>
+
+      <h3>${item[0]}</h3>
+
+      <p>Roshni Ghar Product</p>
+
+      <button class="enquiry"
+              onclick="enquiry('${item[0]}')">
+        Enquire
+      </button>
+    `;
+
+    list.appendChild(card);
+
+  });
+
+  window.scrollTo(0,0);
+}
+
+
+function goHome() {
+
+  document.getElementById("productPage").style.display = "none";
+
+  document.getElementById("homePage").style.display = "block";
+
+  window.scrollTo(0,0);
+}
+
+
+function enquiry(productName) {
+
+  alert(
+    "आपने चुना: " +
+    productName +
+    "\n\nRoshni Ghar enquiry system जल्द connect होगा।"
+  );
+
+}
+
+
+function searchProduct() {
+
+  const text =
+    document.getElementById("searchInput").value
+    .trim()
+    .toLowerCase();
+
+  if (!text) {
+    alert("Product का नाम लिखें।");
+    return;
+  }
+
+  let found = null;
+
+  for (const category in products) {
+
+    for (const item of products[category]) {
+
+      if (item[0].toLowerCase().includes(text)) {
+
+        found = {
+          category: category,
+          icon: item[1]
+        };
+
+        break;
+      }
+    }
+
+    if (found) break;
+  }
+
+  if (found) {
+
+    openCategory(
+      found.category,
+      found.icon
+    );
+
+  } else {
+
+    alert(
+      "यह product अभी catalog में नहीं मिला।"
+    );
+
+  }
+
+}
+
+</script>
+
+<script src="product_detail.js"></script></body>
+</html>

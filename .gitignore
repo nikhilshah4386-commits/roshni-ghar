@@ -1,0 +1,9 @@
+*.backup
+*_backup.*
+*.before_*
+ai_server.py
+voice_bridge.py
+voice_bridge_backup.py
+voice_bridge_speed_backup.py
+index.html.*
+product_detail.backup.js
