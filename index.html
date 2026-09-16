@@ -116,6 +116,68 @@ body {
   display: none;
 }
 
+#detailPage {
+  display: none;
+}
+
+.detail-card {
+  background: #1e293b;
+  border-radius: 20px;
+  padding: 16px;
+}
+
+.detail-image {
+  width: 100%;
+  max-height: 420px;
+  background: #334155;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin-bottom: 18px;
+}
+
+.detail-image img {
+  width: 100%;
+  max-height: 420px;
+  object-fit: contain;
+  display: block;
+}
+
+.detail-card h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.detail-card p {
+  color: #cbd5e1;
+  line-height: 1.5;
+  margin-bottom: 18px;
+}
+
+.detail-enquiry {
+  width: 100%;
+  border: none;
+  padding: 13px;
+  border-radius: 12px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.product {
+  cursor: pointer;
+}
+
+.product-image {
+  cursor: pointer;
+}
+
+.product h3 {
+  cursor: pointer;
+}
+
+
 .backButton {
   background: #334155;
   color: white;
@@ -512,9 +574,61 @@ function openCategory(category, icon) {
 
 function goHome() {
 
+  document.getElementById("detailPage").style.display = "none";
   document.getElementById("productPage").style.display = "none";
-
   document.getElementById("homePage").style.display = "block";
+
+  window.scrollTo(0,0);
+}
+
+function backToProducts() {
+
+  document.getElementById("detailPage").style.display = "none";
+  document.getElementById("productPage").style.display = "block";
+
+  window.scrollTo(0,0);
+}
+
+function openProductDetail(itemJson) {
+
+  let item;
+
+  try {
+    item = JSON.parse(itemJson);
+  } catch (e) {
+    item = {};
+  }
+
+  const name = item.name || item[0] || "Product";
+  const description = item.description || item[1] || "Roshni Ghar Product";
+  const image = item.image || "";
+
+  document.getElementById("homePage").style.display = "none";
+  document.getElementById("productPage").style.display = "none";
+  document.getElementById("detailPage").style.display = "block";
+
+  document.getElementById("detailContent").innerHTML = `
+    <div class="detail-card">
+
+      <div class="detail-image">
+        ${
+          image
+          ? `<img src="${image}" alt="${name}">`
+          : `<div style="font-size:90px">💡</div>`
+        }
+      </div>
+
+      <h2>${name}</h2>
+
+      <p>${description}</p>
+
+      <button class="detail-enquiry"
+              onclick="enquiry(${JSON.stringify(name)})">
+        Enquire Now
+      </button>
+
+    </div>
+  `;
 
   window.scrollTo(0,0);
 }
@@ -533,8 +647,9 @@ function enquiry(productName) {
 
 function searchProduct() {
 
-  const text =
-    document.getElementById("searchInput").value
+  const text = document
+    .getElementById("searchInput")
+    .value
     .trim()
     .toLowerCase();
 
@@ -547,13 +662,23 @@ function searchProduct() {
 
   for (const category in products) {
 
-    for (const item of products[category]) {
+    const list = products[category] || [];
 
-      if (item[0].toLowerCase().includes(text)) {
+    for (const item of list) {
+
+      const name =
+        item.name ||
+        item[0] ||
+        "";
+
+      if (String(name).toLowerCase().includes(text)) {
 
         found = {
           category: category,
-          icon: item[1]
+          icon:
+            item.icon ||
+            item[1] ||
+            "💡"
         };
 
         break;
@@ -575,12 +700,22 @@ function searchProduct() {
     alert(
       "यह product अभी catalog में नहीं मिला।"
     );
-
   }
-
 }
 
 </script>
 
-<script src="product_detail.js"></script></body>
+<script src="product_detail.js">
+document.getElementById("searchInput").addEventListener("keydown", function(e) {
+  if (e.key === "Enter") {
+    searchProduct();
+  }
+});
+
+document.getElementById("assistantInput").addEventListener("keydown", function(e) {
+  if (e.key === "Enter") {
+    sendMessage();
+  }
+});
+</script></body>
 </html>
