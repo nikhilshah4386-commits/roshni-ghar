@@ -2,7 +2,7 @@ const productCatalog = {
   Lights: [
     {
       name: "Modern Ceiling Light",
-      image: "",
+      image: "images/page-1.jpg",
       description: "Roshni Ghar Product"
     },
     {
