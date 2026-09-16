@@ -482,12 +482,12 @@ function openCategory(category, icon) {
 
     card.innerHTML = `
       <div class="product-image">
-        ${item[1]}
+        ${item.image ? `<img src="${item.image}" alt="${item.name}">` : "💡"}
       </div>
 
-      <h3>${item[0]}</h3>
+      <h3>${item.name}</h3>
 
-      <p>Roshni Ghar Product</p>
+      <p>${item.description}</p>
 
       <button class="enquiry"
               onclick="enquiry('${item[0]}')">
