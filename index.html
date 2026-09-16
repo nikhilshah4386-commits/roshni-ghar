@@ -323,7 +323,7 @@ body {
   <div class="products">
 
     <div class="product">
-      <div class="product-image">💡</div>
+      <div class="product-image" onclick="event.stopPropagation()">💡</div>
       <h3>Modern Ceiling Light</h3>
       <p>Premium Lighting</p>
       <button class="enquiry"
@@ -333,7 +333,7 @@ body {
     </div>
 
     <div class="product">
-      <div class="product-image">✨</div>
+      <div class="product-image" onclick="event.stopPropagation()">✨</div>
       <h3>Luxury Chandelier</h3>
       <p>Elegant Design</p>
       <button class="enquiry"
@@ -343,7 +343,7 @@ body {
     </div>
 
     <div class="product">
-      <div class="product-image">🌀</div>
+      <div class="product-image" onclick="event.stopPropagation()">🌀</div>
       <h3>Modern Ceiling Fan</h3>
       <p>Smart Home Style</p>
       <button class="enquiry"
@@ -353,7 +353,7 @@ body {
     </div>
 
     <div class="product">
-      <div class="product-image">🏡</div>
+      <div class="product-image" onclick="event.stopPropagation()">🏡</div>
       <h3>Interior Lighting</h3>
       <p>Home Decoration</p>
       <button class="enquiry"
@@ -488,7 +488,7 @@ function openCategory(category, icon) {
     card.className = "product";
 
     card.innerHTML = `
-      <div class="product-image">
+      <div class="product-image" onclick="event.stopPropagation()">
         ${item.image ? `<img src="${item.image}" alt="${item.name}">` : "💡"}
       </div>
 
@@ -497,7 +497,7 @@ function openCategory(category, icon) {
       <p>${item.description}</p>
 
       <button class="enquiry"
-              onclick="enquiry('${item[0]}')">
+              onclick="enquiry('${item.name}')">
         Enquire
       </button>
     `;
